@@ -24,7 +24,7 @@ export function HeroSection() {
       >
         <div className="max-w-4xl mx-auto">
           <h1 className="mb-6" data-aos="fade-up" data-aos-delay="50">
-            Premium Leather Manufacturing Since 1985
+            Manufacturing Leather Since 1999
           </h1>
           <p
             className="text-xl mb-8 text-gray-200 max-w-2xl mx-auto"
