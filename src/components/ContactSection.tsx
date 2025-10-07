@@ -4,8 +4,120 @@ import { Textarea } from "./ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { toast } from "sonner";
+import { useState } from "react";
+
+type ProductInterestOption =
+  | "handbags"
+  | "automotive"
+  | "furniture"
+  | "accessories"
+  | "custom";
+
+interface ContactFormData {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string; // digits only
+  company: string;
+  productInterest: ProductInterestOption | "";
+  details: string;
+}
+
+const NAME_REGEX = /^[A-Za-z][A-Za-z '\-]*$/;
+const COMPANY_REGEX = /^[A-Za-z][A-Za-z0-9 '&\-]*$/;
+const PHONE_REGEX = /^\d{10}$/;
 
 export function ContactSection() {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const isValidName = (value: string) => NAME_REGEX.test(value);
+  const isValidCompany = (value: string) => COMPANY_REGEX.test(value);
+  const isValidPhone = (value: string) => PHONE_REGEX.test(value);
+
+  const formHandling = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const form = e.target as HTMLFormElement;
+    const formData = new FormData(form);
+    const data: ContactFormData = {
+      firstName: (formData.get("firstName") || "").toString().trim(),
+      lastName: (formData.get("lastName") || "").toString().trim(),
+      email: (formData.get("email") || "").toString().trim(),
+      phone: (formData.get("phone") || "").toString().trim(),
+      company: (formData.get("company") || "").toString().trim(),
+      productInterest: (
+        formData.get("productInterest") || ""
+      ).toString() as ContactFormData["productInterest"],
+      details: (formData.get("details") || "").toString().trim(),
+    };
+
+    // Basic required field checks
+    const missing: string[] = [];
+    if (!data.firstName) missing.push("First Name");
+    if (!data.lastName) missing.push("Last Name");
+    if (!data.email) missing.push("Email");
+    if (!data.phone) missing.push("Phone");
+    if (!data.company) missing.push("Company");
+    if (!data.productInterest) missing.push("Product Interest");
+    if (!data.details) missing.push("Project Details");
+
+    if (missing.length) {
+      toast.error(`Please fill: ${missing.join(", ")}`);
+      return;
+    }
+
+    // Additional format validation
+    const formatErrors: string[] = [];
+    if (!isValidName(data.firstName)) {
+      formatErrors.push("First Name must contain only letters, spaces, ' or -");
+    }
+    if (!isValidName(data.lastName)) {
+      formatErrors.push("Last Name must contain only letters, spaces, ' or -");
+    }
+    if (!isValidCompany(data.company)) {
+      formatErrors.push(
+        "Company must start with a letter and contain letters, numbers, spaces, '&, ' or -"
+      );
+    }
+    if (!isValidPhone(data.phone)) {
+      formatErrors.push("Phone must be exactly 10 digits");
+    }
+    if (data.details.length < 10) {
+      formatErrors.push("Project Details must be at least 10 characters");
+    }
+
+    if (formatErrors.length) {
+      toast.error(formatErrors.join("\n"));
+      return;
+    }
+
+    // Submit to Formspree
+    setIsSubmitting(true);
+    try {
+      const response = await fetch("https://formspree.io/f/xrbyazva", {
+        method: "POST",
+        body: JSON.stringify(data),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (response.ok) {
+        toast.success(
+          "Quote requested successfully! We'll get back to you within 24 hours."
+        );
+        form.reset();
+      } else {
+        const errorData = await response.json();
+        toast.error(errorData.error || "Failed to submit. Please try again.");
+      }
+    } catch (error) {
+      toast.error("Network error. Please check your connection and try again.");
+      console.error("Form submission error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   return (
     <section id="contact" className="py-20 bg-white" data-aos="fade-up">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -120,66 +232,49 @@ export function ContactSection() {
                 </p>
               </CardHeader>
               <CardContent data-aos="fade-up" data-aos-delay="75">
-                <form
-                  className="space-y-6"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    const form = e.target as HTMLFormElement;
-                    const formData = new FormData(form);
-                    const data = {
-                      firstName: (formData.get("firstName") || "")
-                        .toString()
-                        .trim(),
-                      lastName: (formData.get("lastName") || "")
-                        .toString()
-                        .trim(),
-                      email: (formData.get("email") || "").toString().trim(),
-                      phone: (formData.get("phone") || "").toString().trim(),
-                      company: (formData.get("company") || "")
-                        .toString()
-                        .trim(),
-                      productInterest: (
-                        formData.get("productInterest") || ""
-                      ).toString(),
-                      details: (formData.get("details") || "")
-                        .toString()
-                        .trim(),
-                    };
-
-                    // Basic required field checks
-                    const missing: string[] = [];
-                    if (!data.firstName) missing.push("First Name");
-                    if (!data.lastName) missing.push("Last Name");
-                    if (!data.email) missing.push("Email");
-                    if (!data.phone) missing.push("Phone");
-                    if (!data.company) missing.push("Company");
-                    if (!data.productInterest) missing.push("Product Interest");
-                    if (!data.details) missing.push("Project Details");
-
-                    if (missing.length) {
-                      toast.error(`Please fill: ${missing.join(", ")}`);
-                      return;
-                    }
-
-                    // Log and success toast
-                    // eslint-disable-next-line no-console
-                    console.log("Quote Request:", data);
-                    toast.success("Quote Requested successfully");
-                    form.reset();
-                  }}
-                >
+                <form className="space-y-6" onSubmit={formHandling}>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-sm mb-2 text-gray-700">
                         First Name *
                       </label>
-                      <Input name="firstName" placeholder="John" />
+                      <Input
+                        type="text"
+                        name="firstName"
+                        placeholder="John"
+                        required
+                        autoComplete="given-name"
+                        pattern="[A-Za-z][A-Za-z '\\-]*"
+                        onInput={(ev) => {
+                          const input = ev.currentTarget as HTMLInputElement;
+                          input.value = input.value.replace(
+                            /[^A-Za-z '\\-]/g,
+                            ""
+                          );
+                        }}
+                        disabled={isSubmitting}
+                      />
                     </div>
                     <div>
                       <label className="block text-sm mb-2 text-gray-700">
                         Last Name *
                       </label>
-                      <Input name="lastName" placeholder="Doe" />
+                      <Input
+                        type="text"
+                        name="lastName"
+                        placeholder="Doe"
+                        required
+                        autoComplete="family-name"
+                        pattern="[A-Za-z][A-Za-z '\\-]*"
+                        onInput={(ev) => {
+                          const input = ev.currentTarget as HTMLInputElement;
+                          input.value = input.value.replace(
+                            /[^A-Za-z '\\-]/g,
+                            ""
+                          );
+                        }}
+                        disabled={isSubmitting}
+                      />
                     </div>
                   </div>
 
@@ -192,13 +287,31 @@ export function ContactSection() {
                         name="email"
                         type="email"
                         placeholder="john@company.com"
+                        required
+                        autoComplete="email"
+                        disabled={isSubmitting}
                       />
                     </div>
                     <div>
                       <label className="block text-sm mb-2 text-gray-700">
                         Phone *
                       </label>
-                      <Input type="tel" name="phone" placeholder="+1 (555) 123-4567" />
+                      <Input
+                        type="tel"
+                        name="phone"
+                        placeholder="10 digit phone"
+                        inputMode="numeric"
+                        pattern="[0-9]{10}"
+                        minLength={10}
+                        maxLength={10}
+                        required
+                        onInput={(ev) => {
+                          const input = ev.currentTarget as HTMLInputElement;
+                          const digits = input.value.replace(/[^0-9]/g, "");
+                          input.value = digits.slice(0, 10);
+                        }}
+                        disabled={isSubmitting}
+                      />
                     </div>
                   </div>
 
@@ -206,7 +319,20 @@ export function ContactSection() {
                     <label className="block text-sm mb-2 text-gray-700">
                       Company *
                     </label>
-                    <Input name="company" placeholder="Your Company Name" />
+                    <Input
+                      type="text"
+                      name="company"
+                      placeholder="Your Company Name"
+                      required
+                      pattern="[A-Za-z][A-Za-z0-9 '&\\-]*"
+                      onInput={(ev) => {
+                        const input = ev.currentTarget as HTMLInputElement;
+                        input.value = input.value
+                          .replace(/[^A-Za-z0-9 ' &\\-]/g, "")
+                          .replace(/^[^A-Za-z]+/g, "");
+                      }}
+                      disabled={isSubmitting}
+                    />
                   </div>
 
                   <div>
@@ -216,8 +342,13 @@ export function ContactSection() {
                     <select
                       name="productInterest"
                       className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                      defaultValue=""
+                      required
+                      disabled={isSubmitting}
                     >
-                      <option value="" selected disabled>Select a product category</option>
+                      <option value="" disabled>
+                        Select a product category
+                      </option>
                       <option value="handbags">Luxury Handbags</option>
                       <option value="automotive">Automotive Leather</option>
                       <option value="furniture">Furniture Upholstery</option>
@@ -234,6 +365,9 @@ export function ContactSection() {
                       name="details"
                       placeholder="Please describe your project requirements, quantities, timeline, and any specific needs..."
                       rows={5}
+                      minLength={10}
+                      required
+                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -242,8 +376,9 @@ export function ContactSection() {
                     className="w-full bg-amber-700 hover:bg-amber-800"
                     data-aos="zoom-in"
                     data-aos-delay="150"
+                    disabled={isSubmitting}
                   >
-                    Send Message
+                    {isSubmitting ? "Sending..." : "Send Message"}
                   </Button>
                 </form>
               </CardContent>
