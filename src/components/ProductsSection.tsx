@@ -54,9 +54,9 @@ export function ProductsSection() {
             data-aos="fade-up"
             data-aos-delay="100"
           >
-            From luxury fashion accessories to automotive interiors, we
-            manufacture premium leather products across diverse industries with
-            unmatched quality and attention to detail.
+            Premium leather products for footwear, sports goods, furniture
+            upholstery, and fashion accessories. Crafted with superior quality
+            for diverse industry needs.
           </p>
         </div>
 

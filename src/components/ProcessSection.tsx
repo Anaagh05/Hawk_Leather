@@ -109,9 +109,11 @@ export function ProcessSection() {
               data-aos="fade-up"
               data-aos-delay="50"
             >
-              Our commitment to excellence is backed by international
-              certifications and a comprehensive quality management system that
-              ensures consistency across all our products.
+              Our commitment to excellence is built on decades of expertise and
+              a rigorous quality management system that ensures consistency,
+              durability, and superior craftsmanship across all our leather
+              products. We maintain strict quality standards at every stage of
+              production.
             </p>
 
             <div className="space-y-4" data-aos="fade-up" data-aos-delay="100">
