@@ -3,10 +3,8 @@ import { Award, Users, Clock, Globe } from "lucide-react";
 
 export function AboutSection() {
   const stats = [
-    { icon: Clock, label: "Years in Business", value: "38+" },
-    { icon: Users, label: "Skilled Craftsmen", value: "150+" },
-    { icon: Globe, label: "Countries Served", value: "45+" },
-    { icon: Award, label: "Quality Certifications", value: "12+" },
+    { icon: Clock, label: "Years in Business", value: "25+" },
+    { icon: Award, label: "Customer Satisfaction Certifications", value: "98.5%" },
   ];
 
   return (
@@ -20,14 +18,14 @@ export function AboutSection() {
               data-aos="fade-right"
               data-aos-delay="50"
             >
-              Crafting Excellence Since 1985
+              Crafting Excellence Since 1999
             </h2>
             <p
               className="text-gray-600 mb-6"
               data-aos="fade-up"
               data-aos-delay="100"
             >
-              Founded with a passion for leather craftsmanship, Addict Hawk has
+              Founded with a passion for leather, Hawk Exports has
               grown from a small family workshop to one of the world's leading
               leather manufacturers. We serve luxury fashion brands, automotive
               companies, and furniture makers with uncompromising quality.

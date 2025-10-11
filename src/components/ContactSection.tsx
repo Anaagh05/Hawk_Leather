@@ -153,10 +153,11 @@ export function ContactSection() {
                     <div>
                       <h4 className="mb-1 text-gray-900">Factory Location</h4>
                       <p className="text-gray-600">
-                        1<br />
+                        74-C
+                        <br />
                         Leather Complex
                         <br />
-                        Jalandhar, Punjab 144001
+                        Jalandhar-144021
                       </p>
                     </div>
                   </div>
@@ -172,9 +173,9 @@ export function ContactSection() {
                     <div>
                       <h4 className="mb-1 text-gray-900">Phone</h4>
                       <p className="text-gray-600">
-                        Sales: +39 055 123 4567
+                        +919872664468
                         <br />
-                        Support: +39 055 123 4568
+                        +917696300088
                       </p>
                     </div>
                   </div>
@@ -189,11 +190,7 @@ export function ContactSection() {
                     </div>
                     <div>
                       <h4 className="mb-1 text-gray-900">Email</h4>
-                      <p className="text-gray-600">
-                        sales@leathercraft.com
-                        <br />
-                        info@leathercraft.com
-                      </p>
+                      <p className="text-gray-600">hawkexports@gmail.com</p>
                     </div>
                   </div>
                 </CardContent>
@@ -208,9 +205,7 @@ export function ContactSection() {
                     <div>
                       <h4 className="mb-1 text-gray-900">Business Hours</h4>
                       <p className="text-gray-600">
-                        Mon - Fri: 8:00 AM - 6:00 PM
-                        <br />
-                        Sat: 9:00 AM - 2:00 PM
+                        Mon - Sat: 9:00 AM - 6:00 PM
                         <br />
                         Sun: Closed
                       </p>
@@ -349,10 +344,10 @@ export function ContactSection() {
                       <option value="" disabled>
                         Select a product category
                       </option>
-                      <option value="handbags">Luxury Handbags</option>
-                      <option value="automotive">Automotive Leather</option>
+                      <option value="handbags">Shoe Upper & Lining Leather</option>
+                      <option value="automotive">Sports Goods Leather</option>
                       <option value="furniture">Furniture Upholstery</option>
-                      <option value="accessories">Accessories & Goods</option>
+                      <option value="accessories">Garments & Goods</option>
                       <option value="custom">Custom Project</option>
                     </select>
                   </div>

@@ -27,7 +27,7 @@ export function Header() {
             data-aos-delay="50"
           >
             <div className="bg-amber-700 text-white px-3 py-2 rounded">
-              <span className="font-bold">Addict Hawk</span>
+              <span className="font-bold"> Hawk Exports</span>
             </div>
           </div>
 

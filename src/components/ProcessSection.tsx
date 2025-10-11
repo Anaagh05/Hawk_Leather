@@ -23,9 +23,9 @@ export function ProcessSection() {
     },
     {
       step: "04",
-      title: "Precision Crafting",
+      title: "Experts Finishing",
       description:
-        "Skilled craftsmen cut, stitch, and finish each piece with meticulous attention to detail.",
+        "Experts finish each piece with meticulous attention to detail. We ensure that the leather is smooth, soft, and durable.",
     },
     {
       step: "05",
@@ -36,10 +36,9 @@ export function ProcessSection() {
   ];
 
   const qualityFeatures = [
-    "ISO 9001:2015 Certified Manufacturing",
     "Sustainable & Ethical Sourcing",
     "Advanced Quality Control Systems",
-    "Expert Craftsmen with 20+ Years Experience",
+    "25+ Years Experience",
     "Custom Color Matching Available",
     "Flexible Production Capacity",
   ];
@@ -97,10 +96,13 @@ export function ProcessSection() {
         </div>
 
         {/* Quality Assurance Section */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div
+          className="grid lg:grid-cols-2 gap-12 items-center"
+          id="quality-assurance"
+        >
           <div>
             <h3 className="mb-6 text-amber-700" data-aos="fade-right">
-              Quality Assurance & Certifications
+              Quality Assurance Standards
             </h3>
             <p
               className="text-gray-600 mb-8"
@@ -124,7 +126,7 @@ export function ProcessSection() {
 
           <div className="relative overflow-hidden" data-aos="fade-left">
             <ImageWithFallback
-              src="https://images.unsplash.com/photo-1758252510544-867de633a4cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsZWF0aGVyJTIwbWFudWZhY3R1cmluZyUyMHByb2Nlc3N8ZW58MXx8fHwxNzU5NDI1NzU3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
+              src="/upholistry.jpg"
               alt="Leather manufacturing process"
               className="w-full h-96 object-cover rounded-lg shadow-xl"
             />

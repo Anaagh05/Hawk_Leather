@@ -5,32 +5,35 @@ import { Badge } from "./ui/badge";
 export function ProductsSection() {
   const products = [
     {
-      title: "Luxury Handbags",
-      description: "Premium handbags for high-end fashion brands",
+      title: "Shoe Upper & Lining Leather",
+      description:
+        "Premium quality leather specifically designed for footwear manufacturing with superior durability and flexibility.",
       image:
         "https://images.unsplash.com/photo-1693657606674-8d7fd5a0dd6a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBsZWF0aGVyJTIwZ29vZHN8ZW58MXx8fHwxNzU5NDI1NzU2fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      tags: ["Fashion", "Luxury", "Custom"],
+      tags: ["Footwear", "Durable", "Flexible"],
     },
     {
-      title: "Automotive Leather",
-      description: "Interior leather solutions for luxury vehicles",
+      title: "Sports Goods Leather",
+      description:
+        "High-performance leather engineered for sports equipment with excellent grip and weather resistance.",
       image:
         "https://images.unsplash.com/photo-1697551895880-ddab44b0b31a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxoYW5kbWFkZSUyMGxlYXRoZXIlMjBwcm9kdWN0c3xlbnwxfHx8fDE3NTk0MjU3NTh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      tags: ["Automotive", "Durable", "Premium"],
+      tags: ["Sports", "Performance", "Weather-Resistant"],
     },
     {
       title: "Furniture Upholstery",
-      description: "High-quality leather for premium furniture",
-      image:
-        "https://images.unsplash.com/photo-1758252510544-867de633a4cd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsZWF0aGVyJTIwbWFudWZhY3R1cmluZyUyMHByb2Nlc3N8ZW58MXx8fHwxNzU5NDI1NzU3fDA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      tags: ["Furniture", "Commercial", "Residential"],
+      description:
+        "Luxurious leather upholstery materials perfect for premium furniture and interior design applications.",
+      image: "/upholistry.jpg",
+      tags: ["Furniture", "Luxury", "Interior"],
     },
     {
-      title: "Accessories & Goods",
-      description: "Belts, wallets, and custom leather accessories",
+      title: "Garments & Goods",
+      description:
+        "Versatile leather materials for fashion garments and accessories with superior softness and breathability.",
       image:
         "https://images.unsplash.com/photo-1727517786847-7a409bde2add?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsZWF0aGVyJTIwZmFjdG9yeSUyMGVxdWlwbWVudHxlbnwxfHx8fDE3NTk0MjU3NTh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      tags: ["Accessories", "Custom", "Retail"],
+      tags: ["Fashion", "Accessories", "Versatile"],
     },
   ];
 
