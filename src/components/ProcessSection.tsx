@@ -85,11 +85,7 @@ export function ProcessSection() {
                   <h3 className="text-2xl mb-2 text-gray-900">{step.title}</h3>
                   <p className="text-gray-600 text-lg">{step.description}</p>
                 </div>
-                {index < processSteps.length - 1 && (
-                  <div className="hidden lg:block flex-shrink-0">
-                    <ArrowRight className="w-6 h-6 text-amber-700 mt-5" />
-                  </div>
-                )}
+
               </div>
             ))}
           </div>

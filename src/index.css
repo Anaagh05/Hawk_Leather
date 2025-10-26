@@ -91,8 +91,8 @@
     --font-weight-bold: 700;
     --radius-2xl: 1rem;
     --animate-bounce: bounce 1s infinite;
-    --default-transition-duration: 0.15s;
-    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    --default-transition-duration: 0.1s;
+    --default-transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
     --default-font-family: var(--font-sans);
     --default-font-feature-settings: var(--font-sans--font-feature-settings);
     --default-font-variation-settings: var(
@@ -2144,4 +2144,65 @@ html {
     animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
     transform: none;
   }
+}
+
+/* Add these keyframes and utilities to your index.css file at the end */
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Add translate utilities if missing */
+.hover\:-translate-y-3:hover {
+  transform: translateY(-0.75rem);
+}
+
+.-translate-y-1\/2 {
+  transform: translateY(-50%);
+}
+
+.-translate-x-1\/2 {
+  transform: translateX(-50%);
+}
+
+/* Add scale utilities if missing */
+.hover\:scale-110:hover {
+  transform: scale(1.1);
+}
+
+.hover\:scale-105:hover {
+  transform: scale(1.05);
+}
+
+.scale-125 {
+  transform: scale(1.25);
+}
+
+/* Ensure transitions work smoothly */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fix for AOS conflicts - add this if AOS interferes */
+[data-aos] {
+  pointer-events: auto !important;
+}
+
+[data-aos].aos-animate {
+  pointer-events: auto !important;
 }

@@ -13,10 +13,14 @@ import { Toaster } from "./components/ui/sonner";
 export default function App() {
   useEffect(() => {
     AOS.init({
-      duration: 900,
-      easing: "ease-out-quart",
+      duration: 600, // Reduced duration for smoother animations
+      easing: "ease-out-cubic", // Using a more performant easing function
       once: true,
       offset: 40,
+      disable: "mobile", // Disable on mobile for better performance
+      throttleDelay: 99, // Add throttling to reduce calculations
+      debounceDelay: 50, // Add debouncing to improve scroll performance
+      disableMutationObserver: false, // Enable for dynamic content
     });
   }, []);
 
