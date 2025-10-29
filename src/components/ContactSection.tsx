@@ -190,7 +190,7 @@ export function ContactSection() {
                     </div>
                     <div>
                       <h4 className="mb-1 text-gray-900">Email</h4>
-                      <p className="text-gray-600">hawkexports@gmail.com</p>
+                      <p className="text-gray-600">addicthawk9@gmail.com</p>
                     </div>
                   </div>
                 </CardContent>
