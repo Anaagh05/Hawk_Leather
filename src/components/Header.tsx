@@ -1,6 +1,7 @@
 import { Menu, X } from "lucide-react";
 import { Button } from "./ui/button";
 import { useState } from "react";
+import ScrollReveal from "./ScrollReveal";
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,29 +15,18 @@ export function Header() {
   ];
 
   return (
-    <header
-      className="bg-white shadow-sm sticky top-0 z-50"
-      data-aos="fade-down"
-    >
+    <ScrollReveal as="header" className="bg-white shadow-sm sticky top-0 z-50" animation="fade-down">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
           {/* Logo */}
-          <div
-            className="flex items-center"
-            data-aos="zoom-in"
-            data-aos-delay="50"
-          >
+          <ScrollReveal animation="zoom-in" delay={50} className="flex items-center">
             <div className="bg-amber-700 text-white px-3 py-2 rounded">
               <span className="font-bold"> Hawk Exports</span>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Desktop Navigation */}
-          <nav
-            className="hidden md:flex space-x-8"
-            data-aos="fade-down"
-            data-aos-delay="100"
-          >
+          <ScrollReveal animation="fade-down" delay={100} className="hidden md:flex space-x-8">
             {navigation.map((item) => (
               <a
                 key={item.name}
@@ -46,18 +36,14 @@ export function Header() {
                 {item.name}
               </a>
             ))}
-          </nav>
+          </ScrollReveal>
 
           {/* CTA Button */}
-          <div
-            className="hidden md:block"
-            data-aos="fade-left"
-            data-aos-delay="150"
-          >
+          <ScrollReveal animation="fade-left" delay={150} className="hidden md:block">
             <Button className="bg-amber-700 hover:bg-amber-800">
               <a href="#contact">Get Quote</a>
             </Button>
-          </div>
+          </ScrollReveal>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
@@ -96,6 +82,6 @@ export function Header() {
           </div>
         )}
       </div>
-    </header>
+    </ScrollReveal>
   );
 }

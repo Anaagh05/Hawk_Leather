@@ -1,5 +1,6 @@
 import { Button } from "./ui/button";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import ScrollReveal from "./ScrollReveal";
 
 export function HeroSection() {
   return (
@@ -18,45 +19,40 @@ export function HeroSection() {
       </div>
 
       {/* Content */}
-      <div
-        className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white"
-        data-aos="fade-up"
-      >
-        <div className="max-w-4xl mx-auto">
-          <h1 className="mb-6" data-aos="fade-up" data-aos-delay="50">
-            Manufacturing Leather Since 1999
-          </h1>
-          <p
-            className="text-xl mb-8 text-gray-200 max-w-2xl mx-auto"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            We combine traditional craftsmanship with modern techniques to
-            create the finest leather products for luxury brands worldwide. From
-            concept to completion, we deliver excellence in every stitch.
-          </p>
-          <div
-            className="flex flex-col sm:flex-row gap-4 justify-center"
-            data-aos="zoom-in"
-            data-aos-delay="150"
-          >
-            <Button
-              asChild
-              size="lg"
-              className="bg-amber-700 hover:bg-white hover:text-gray-900"
-            >
-              <a href="#products">View Our Products</a>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              className="text-white bg-amber-700"
-            >
-              <a href="#contact">Contact Us Today</a>
-            </Button>
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-white">
+        <ScrollReveal animation="fade-up">
+          <div className="max-w-4xl mx-auto">
+            <ScrollReveal animation="fade-up" delay={50}>
+              <h1 className="mb-6">Manufacturing Leather Since 1999</h1>
+            </ScrollReveal>
+
+            <ScrollReveal animation="fade-up" delay={100}>
+              <p className="text-xl mb-8 text-gray-200 max-w-2xl mx-auto">
+                We combine traditional craftsmanship with modern techniques to
+                create the finest leather products for luxury brands worldwide. From
+                concept to completion, we deliver excellence in every stitch.
+              </p>
+            </ScrollReveal>
+
+            <ScrollReveal animation="zoom-in" delay={150} className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button
+                asChild
+                size="lg"
+                className="bg-amber-700 hover:bg-white hover:text-gray-900"
+              >
+                <a href="#products">View Our Products</a>
+              </Button>
+              <Button
+                asChild
+                size="lg"
+                variant="outline"
+                className="text-white bg-amber-700"
+              >
+                <a href="#contact">Contact Us Today</a>
+              </Button>
+            </ScrollReveal>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
 
       {/* Scroll Indicator */}

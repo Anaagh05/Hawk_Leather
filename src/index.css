@@ -2158,7 +2158,8 @@ html {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -2198,11 +2199,13 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Fix for AOS conflicts - add this if AOS interferes */
-[data-aos] {
-  pointer-events: auto !important;
-}
+/* Scroll reveal animations are now handled by framer-motion (ScrollReveal).
+   Keep general reduced-motion preference handled globally here.
+*/
 
-[data-aos].aos-animate {
-  pointer-events: auto !important;
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
 }

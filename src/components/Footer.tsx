@@ -7,6 +7,7 @@ import {
   Phone,
   MapPin,
 } from "lucide-react";
+import ScrollReveal from "./ScrollReveal";
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -35,11 +36,11 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-gray-900 text-white" data-aos="fade-up">
+    <ScrollReveal as="footer" className="bg-gray-900 text-white" animation="fade-up">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Company Info */}
-          <div className="lg:col-span-1" data-aos="fade-up" data-aos-delay="50">
+          <ScrollReveal className="lg:col-span-1" animation="fade-up" delay={100}>
             <div className="bg-amber-700 text-white px-3 py-2 rounded w-fit mb-6">
               <span className="font-bold"> Hawk Exports</span>
             </div>
@@ -65,15 +66,11 @@ export function Footer() {
                 <span className="text-gray-300">addicthawk9@gmail.com</span>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
 
           {/* Links Sections */}
           <div className="lg:col-span-2">
-            <div
-              className="grid md:grid-cols-2 gap-8"
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
+            <ScrollReveal className="grid md:grid-cols-2 gap-8" animation="fade-up" delay={200}>
               <div>
                 <h3 className="mb-6 text-amber-500">Company</h3>
                 <ul className="space-y-3">
@@ -105,7 +102,7 @@ export function Footer() {
                   ))}
                 </ul>
               </div>
-            </div>
+            </ScrollReveal>
           </div>
         </div>
 
@@ -119,6 +116,6 @@ export function Footer() {
           </div>
         </div>
       </div>
-    </footer>
+    </ScrollReveal>
   );
 }

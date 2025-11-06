@@ -1,10 +1,11 @@
+import React, { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { toast } from "sonner";
-import { useState } from "react";
+import ScrollReveal from "./ScrollReveal";
 
 type ProductInterestOption =
   | "handbags"
@@ -36,17 +37,16 @@ export function ContactSection() {
 
   const formHandling = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const form = e.target as HTMLFormElement;
+    const form = e.currentTarget;
     const formData = new FormData(form);
+
     const data: ContactFormData = {
       firstName: (formData.get("firstName") || "").toString().trim(),
       lastName: (formData.get("lastName") || "").toString().trim(),
       email: (formData.get("email") || "").toString().trim(),
       phone: (formData.get("phone") || "").toString().trim(),
       company: (formData.get("company") || "").toString().trim(),
-      productInterest: (
-        formData.get("productInterest") || ""
-      ).toString() as ContactFormData["productInterest"],
+      productInterest: (formData.get("productInterest") || "").toString() as ContactFormData["productInterest"],
       details: (formData.get("details") || "").toString().trim(),
     };
 
@@ -75,7 +75,7 @@ export function ContactSection() {
     }
     if (!isValidCompany(data.company)) {
       formatErrors.push(
-        "Company must start with a letter and contain letters, numbers, spaces, '&, ' or -"
+        "Company must start with a letter and contain letters, numbers, spaces, '& or -"
       );
     }
     if (!isValidPhone(data.phone)) {
@@ -112,6 +112,7 @@ export function ContactSection() {
       }
     } catch (error) {
       toast.error("Network error. Please check your connection and try again.");
+      // eslint-disable-next-line no-console
       console.error("Form submission error:", error);
     } finally {
       setIsSubmitting(false);
@@ -119,268 +120,241 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-20 bg-white" data-aos="fade-up">
+    <ScrollReveal as="section" id="contact" className="py-20 bg-white" animation="fade-up">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="text-center mb-16" data-aos="fade-up">
-          <h2
-            className="mb-4 text-gray-900"
-            data-aos="fade-up"
-            data-aos-delay="50"
-          >
-            Get In Touch
-          </h2>
-          <p
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
-            Ready to discuss your leather manufacturing needs? Our team of
-            experts is here to help you bring your vision to life.
-          </p>
+        <div className="text-center mb-16">
+          <ScrollReveal animation="fade-up" delay={100}>
+            <h2 className="mb-4 text-gray-900">Get In Touch</h2>
+          </ScrollReveal>
+
+          <ScrollReveal animation="fade-up" delay={200}>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Ready to discuss your leather manufacturing needs? Our team of
+              experts is here to help you bring your vision to life.
+            </p>
+          </ScrollReveal>
         </div>
 
         <div className="grid lg:grid-cols-3 gap-8">
           {/* Contact Information */}
-          <div className="lg:col-span-1" data-aos="fade-right">
+          <div className="lg:col-span-1">
             <div className="space-y-6">
-              <Card data-aos="fade-up" data-aos-delay="0">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-6 h-6 text-amber-700" />
+              <ScrollReveal animation="fade-up" delay={300} className="block">
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <MapPin className="w-6 h-6 text-amber-700" />
+                      </div>
+                      <div>
+                        <h4 className="mb-1 text-gray-900">Factory Location</h4>
+                        <p className="text-gray-600">
+                          74-C
+                          <br />
+                          Leather Complex
+                          <br />
+                          Jalandhar-144021
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="mb-1 text-gray-900">Factory Location</h4>
-                      <p className="text-gray-600">
-                        74-C
-                        <br />
-                        Leather Complex
-                        <br />
-                        Jalandhar-144021
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
 
-              <Card data-aos="fade-up" data-aos-delay="75">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-6 h-6 text-amber-700" />
+              <ScrollReveal animation="fade-up" delay={150} className="block">
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Phone className="w-6 h-6 text-amber-700" />
+                      </div>
+                      <div>
+                        <h4 className="mb-1 text-gray-900">Phone</h4>
+                        <p className="text-gray-600">
+                          +919872664468
+                          <br />
+                          +917696300088
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="mb-1 text-gray-900">Phone</h4>
-                      <p className="text-gray-600">
-                        +919872664468
-                        <br />
-                        +917696300088
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
 
-              <Card data-aos="fade-up" data-aos-delay="150">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-6 h-6 text-amber-700" />
+              <ScrollReveal animation="fade-up" delay={300} className="block">
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Mail className="w-6 h-6 text-amber-700" />
+                      </div>
+                      <div>
+                        <h4 className="mb-1 text-gray-900">Email</h4>
+                        <p className="text-gray-600">addicthawk9@gmail.com</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="mb-1 text-gray-900">Email</h4>
-                      <p className="text-gray-600">addicthawk9@gmail.com</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
 
-              <Card data-aos="fade-up" data-aos-delay="225">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Clock className="w-6 h-6 text-amber-700" />
+              <ScrollReveal animation="fade-up" delay={300} className="block">
+                <Card>
+                  <CardContent className="p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                        <Clock className="w-6 h-6 text-amber-700" />
+                      </div>
+                      <div>
+                        <h4 className="mb-1 text-gray-900">Business Hours</h4>
+                        <p className="text-gray-600">
+                          Mon - Sat: 9:00 AM - 6:00 PM
+                          <br />
+                          Sun: Closed
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="mb-1 text-gray-900">Business Hours</h4>
-                      <p className="text-gray-600">
-                        Mon - Sat: 9:00 AM - 6:00 PM
-                        <br />
-                        Sun: Closed
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </ScrollReveal>
             </div>
           </div>
 
           {/* Contact Form */}
-          <div className="lg:col-span-2" data-aos="fade-left">
-            <Card>
-              <CardHeader data-aos="fade-up">
-                <CardTitle>Request a Quote</CardTitle>
-                <p className="text-gray-600">
-                  Fill out the form below and our team will get back to you
-                  within 24 hours.
-                </p>
-              </CardHeader>
-              <CardContent data-aos="fade-up" data-aos-delay="75">
-                <form className="space-y-6" onSubmit={formHandling}>
-                  <div className="grid md:grid-cols-2 gap-4">
-                    <div>
-                      <label className="block text-sm mb-2 text-gray-700">
-                        First Name *
-                      </label>
-                      <Input
-                        type="text"
-                        name="firstName"
-                        placeholder="John"
-                        required
-                        autoComplete="given-name"
-                        pattern="[A-Za-z][A-Za-z '\\-]*"
-                        onInput={(ev) => {
-                          const input = ev.currentTarget as HTMLInputElement;
-                          input.value = input.value.replace(
-                            /[^A-Za-z '\\-]/g,
-                            ""
-                          );
-                        }}
-                        disabled={isSubmitting}
-                      />
-                    </div>
-                    <div>
-                      <label className="block text-sm mb-2 text-gray-700">
-                        Last Name *
-                      </label>
-                      <Input
-                        type="text"
-                        name="lastName"
-                        placeholder="Doe"
-                        required
-                        autoComplete="family-name"
-                        pattern="[A-Za-z][A-Za-z '\\-]*"
-                        onInput={(ev) => {
-                          const input = ev.currentTarget as HTMLInputElement;
-                          input.value = input.value.replace(
-                            /[^A-Za-z '\\-]/g,
-                            ""
-                          );
-                        }}
-                        disabled={isSubmitting}
-                      />
-                    </div>
-                  </div>
+          <div className="lg:col-span-2">
+            <ScrollReveal animation="fade-right" delay={500}>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Request a Quote</CardTitle>
+                  <p className="text-gray-600">
+                    Fill out the form below and our team will get back to you
+                    within 24 hours.
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  <form className="space-y-6" onSubmit={formHandling}>
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm mb-2 text-gray-700">First Name *</label>
+                        <Input
+                          type="text"
+                          name="firstName"
+                          placeholder="John"
+                          required
+                          autoComplete="given-name"
+                          pattern="[A-Za-z][A-Za-z '\-]*"
+                          onInput={(ev) => {
+                            const input = ev.currentTarget as HTMLInputElement;
+                            input.value = input.value.replace(/[^A-Za-z '\-]/g, "");
+                          }}
+                          disabled={isSubmitting}
+                        />
+                      </div>
 
-                  <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm mb-2 text-gray-700">Last Name *</label>
+                        <Input
+                          type="text"
+                          name="lastName"
+                          placeholder="Doe"
+                          required
+                          autoComplete="family-name"
+                          pattern="[A-Za-z][A-Za-z '\-]*"
+                          onInput={(ev) => {
+                            const input = ev.currentTarget as HTMLInputElement;
+                            input.value = input.value.replace(/[^A-Za-z '\-]/g, "");
+                          }}
+                          disabled={isSubmitting}
+                        />
+                      </div>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-4">
+                      <div>
+                        <label className="block text-sm mb-2 text-gray-700">Email *</label>
+                        <Input name="email" type="email" placeholder="john@company.com" required autoComplete="email" disabled={isSubmitting} />
+                      </div>
+                      <div>
+                        <label className="block text-sm mb-2 text-gray-700">Phone *</label>
+                        <Input
+                          type="tel"
+                          name="phone"
+                          placeholder="10 digit phone"
+                          inputMode="numeric"
+                          pattern="[0-9]{10}"
+                          minLength={10}
+                          maxLength={10}
+                          required
+                          onInput={(ev) => {
+                            const input = ev.currentTarget as HTMLInputElement;
+                            const digits = input.value.replace(/[^0-9]/g, "");
+                            input.value = digits.slice(0, 10);
+                          }}
+                          disabled={isSubmitting}
+                        />
+                      </div>
+                    </div>
+
                     <div>
-                      <label className="block text-sm mb-2 text-gray-700">
-                        Email *
-                      </label>
+                      <label className="block text-sm mb-2 text-gray-700">Company *</label>
                       <Input
-                        name="email"
-                        type="email"
-                        placeholder="john@company.com"
+                        type="text"
+                        name="company"
+                        placeholder="Your Company Name"
                         required
-                        autoComplete="email"
+                        pattern="[A-Za-z][A-Za-z0-9 '&\\-]*"
+                        onInput={(ev) => {
+                          const input = ev.currentTarget as HTMLInputElement;
+                          input.value = input.value.replace(/[^A-Za-z0-9 ' &\\-]/g, "").replace(/^[^A-Za-z]+/g, "");
+                        }}
                         disabled={isSubmitting}
                       />
                     </div>
+
                     <div>
-                      <label className="block text-sm mb-2 text-gray-700">
-                        Phone *
-                      </label>
-                      <Input
-                        type="tel"
-                        name="phone"
-                        placeholder="10 digit phone"
-                        inputMode="numeric"
-                        pattern="[0-9]{10}"
+                      <label className="block text-sm mb-2 text-gray-700">Product Interest *</label>
+                      <select
+                        name="productInterest"
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
+                        defaultValue=""
+                        required
+                        disabled={isSubmitting}
+                      >
+                        <option value="" disabled>
+                          Select a product category
+                        </option>
+                        <option value="handbags">Shoe Upper & Lining Leather</option>
+                        <option value="automotive">Sports Goods Leather</option>
+                        <option value="furniture">Furniture Upholstery</option>
+                        <option value="accessories">Garments & Goods</option>
+                        <option value="custom">Custom Project</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label className="block text-sm mb-2 text-gray-700">Project Details *</label>
+                      <Textarea
+                        name="details"
+                        placeholder="Please describe your project requirements, quantities, timeline, and any specific needs..."
+                        rows={5}
                         minLength={10}
-                        maxLength={10}
                         required
-                        onInput={(ev) => {
-                          const input = ev.currentTarget as HTMLInputElement;
-                          const digits = input.value.replace(/[^0-9]/g, "");
-                          input.value = digits.slice(0, 10);
-                        }}
                         disabled={isSubmitting}
                       />
                     </div>
-                  </div>
 
-                  <div>
-                    <label className="block text-sm mb-2 text-gray-700">
-                      Company *
-                    </label>
-                    <Input
-                      type="text"
-                      name="company"
-                      placeholder="Your Company Name"
-                      required
-                      pattern="[A-Za-z][A-Za-z0-9 '&\\-]*"
-                      onInput={(ev) => {
-                        const input = ev.currentTarget as HTMLInputElement;
-                        input.value = input.value
-                          .replace(/[^A-Za-z0-9 ' &\\-]/g, "")
-                          .replace(/^[^A-Za-z]+/g, "");
-                      }}
-                      disabled={isSubmitting}
-                    />
-                  </div>
-
-                  <div>
-                    <label className="block text-sm mb-2 text-gray-700">
-                      Product Interest *
-                    </label>
-                    <select
-                      name="productInterest"
-                      className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500"
-                      defaultValue=""
-                      required
-                      disabled={isSubmitting}
-                    >
-                      <option value="" disabled>
-                        Select a product category
-                      </option>
-                      <option value="handbags">Shoe Upper & Lining Leather</option>
-                      <option value="automotive">Sports Goods Leather</option>
-                      <option value="furniture">Furniture Upholstery</option>
-                      <option value="accessories">Garments & Goods</option>
-                      <option value="custom">Custom Project</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label className="block text-sm mb-2 text-gray-700">
-                      Project Details *
-                    </label>
-                    <Textarea
-                      name="details"
-                      placeholder="Please describe your project requirements, quantities, timeline, and any specific needs..."
-                      rows={5}
-                      minLength={10}
-                      required
-                      disabled={isSubmitting}
-                    />
-                  </div>
-
-                  <Button
-                    type="submit"
-                    className="w-full bg-amber-700 hover:bg-amber-800"
-                    data-aos="zoom-in"
-                    data-aos-delay="150"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+                    <Button type="submit" className="w-full bg-amber-700 hover:bg-amber-800" disabled={isSubmitting}>
+                      {isSubmitting ? "Sending..." : "Send Message"}
+                    </Button>
+                  </form>
+                </CardContent>
+              </Card>
+            </ScrollReveal>
           </div>
         </div>
       </div>
-    </section>
+    </ScrollReveal>
   );
 }
+
+export default ContactSection;

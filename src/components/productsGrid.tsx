@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import ScrollReveal from "./ScrollReveal";
 
 interface ProductVariant {
   title: string;
@@ -484,20 +485,20 @@ const CardCarousel: React.FC<{ product: Product }> = ({ product }) => {
 };
 
 const ProductsGrid: React.FC = () => (
-  <div className="p-8" data-aos="fade-up" data-aos-once="true">
+  <ScrollReveal className="p-8" animation="fade-up">
     <div className="max-w-7xl mx-auto">
       <div
         className="grid md:grid-cols-2 lg:grid-cols-4"
         style={{ gap: "2rem" }}
       >
         {products.map((product, idx) => (
-          <div key={idx}>
+          <ScrollReveal key={idx} animation="fade-up" delay={idx * 180} duration={0.65} className="">
             <CardCarousel product={product} />
-          </div>
+          </ScrollReveal>
         ))}
       </div>
     </div>
-  </div>
+  </ScrollReveal>
 );
 
 export default ProductsGrid;
