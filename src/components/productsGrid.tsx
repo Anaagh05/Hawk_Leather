@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { FadeUp } from "./ui/motion";
 
 interface ProductVariant {
   title: string;
@@ -238,14 +239,11 @@ const CardCarousel: React.FC<{ product: Product }> = ({ product }) => {
         e.currentTarget.style.borderColor = "rgba(229, 231, 235, 0.6)";
       }}
     >
-      {/* Image Carousel Container */}
       <div
         className="relative overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100"
         style={{ height: "280px" }}
       >
-        {/* Main Image */}
         <div className="relative w-full h-full">
-          {/* Loading Skeleton */}
           {imageLoading && (
             <div
               className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center"
@@ -279,7 +277,6 @@ const CardCarousel: React.FC<{ product: Product }> = ({ product }) => {
             }}
           />
 
-          {/* Gradient Overlay */}
           <div
             className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent pointer-events-none"
             style={{
@@ -291,7 +288,6 @@ const CardCarousel: React.FC<{ product: Product }> = ({ product }) => {
             }}
           />
 
-          {/* Navigation Buttons - Always visible with better styling */}
           <button
             className="absolute top-1/2 bg-white/95 border border-gray-300 p-2.5 rounded-full z-10"
             style={{
@@ -359,7 +355,6 @@ const CardCarousel: React.FC<{ product: Product }> = ({ product }) => {
           </button>
         </div>
 
-        {/* Slide Indicators */}
         <div
           className="absolute bottom-3 left-1/2 flex z-10"
           style={{ transform: "translateX(-50%)", gap: "6px" }}
@@ -399,9 +394,7 @@ const CardCarousel: React.FC<{ product: Product }> = ({ product }) => {
         </div>
       </div>
 
-      {/* Content Section */}
       <div className="flex flex-col flex-1 p-6" style={{ gap: "1rem" }}>
-        {/* Title */}
         <h3
           className="text-xl font-bold text-gray-900"
           style={{
@@ -419,7 +412,6 @@ const CardCarousel: React.FC<{ product: Product }> = ({ product }) => {
           {variant.title}
         </h3>
 
-        {/* Description */}
         <p
           className="text-gray-600 text-sm"
           style={{
@@ -440,7 +432,6 @@ const CardCarousel: React.FC<{ product: Product }> = ({ product }) => {
           {variant.description}
         </p>
 
-        {/* Tags */}
         <div className="flex flex-wrap mt-auto" style={{ gap: "0.5rem" }}>
           {product.tags.map((tag, idx) => (
             <span
@@ -470,7 +461,6 @@ const CardCarousel: React.FC<{ product: Product }> = ({ product }) => {
         </div>
       </div>
 
-      {/* Subtle Border Glow Effect */}
       <div
         className="absolute inset-0 rounded-2xl pointer-events-none"
         style={{
@@ -484,7 +474,7 @@ const CardCarousel: React.FC<{ product: Product }> = ({ product }) => {
 };
 
 const ProductsGrid: React.FC = () => (
-  <div className="p-8" data-aos="fade-up" data-aos-once="true">
+  <FadeUp className="p-8">
     <div className="max-w-7xl mx-auto">
       <div
         className="grid md:grid-cols-2 lg:grid-cols-4"
@@ -497,7 +487,7 @@ const ProductsGrid: React.FC = () => (
         ))}
       </div>
     </div>
-  </div>
+  </FadeUp>
 );
 
 export default ProductsGrid;

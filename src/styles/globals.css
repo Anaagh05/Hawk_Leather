@@ -186,4 +186,15 @@
 
 html {
   font-size: var(--font-size);
+  overflow-x: hidden;
+  height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  min-height: 100%;
+}
+
+#root {
+  min-height: 100%;
 }

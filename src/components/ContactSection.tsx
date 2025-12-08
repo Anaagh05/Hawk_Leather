@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import { toast } from "sonner";
 import { useState } from "react";
+import { FadeUp, FadeRight, FadeLeft, ZoomIn, StaggerContainer, StaggerItem } from "./ui/motion";
 
 type ProductInterestOption =
   | "handbags"
@@ -17,7 +18,7 @@ interface ContactFormData {
   firstName: string;
   lastName: string;
   email: string;
-  phone: string; // digits only
+  phone: string;
   company: string;
   productInterest: ProductInterestOption | "";
   details: string;
@@ -50,7 +51,6 @@ export function ContactSection() {
       details: (formData.get("details") || "").toString().trim(),
     };
 
-    // Basic required field checks
     const missing: string[] = [];
     if (!data.firstName) missing.push("First Name");
     if (!data.lastName) missing.push("Last Name");
@@ -65,7 +65,6 @@ export function ContactSection() {
       return;
     }
 
-    // Additional format validation
     const formatErrors: string[] = [];
     if (!isValidName(data.firstName)) {
       formatErrors.push("First Name must contain only letters, spaces, ' or -");
@@ -90,7 +89,6 @@ export function ContactSection() {
       return;
     }
 
-    // Submit to Formspree
     setIsSubmitting(true);
     try {
       const response = await fetch("https://formspree.io/f/xrbyazva", {
@@ -118,115 +116,95 @@ export function ContactSection() {
     }
   };
 
+  const contactCards = [
+    {
+      icon: MapPin,
+      title: "Factory Location",
+      content: (
+        <>
+          74-C
+          <br />
+          Leather Complex
+          <br />
+          Jalandhar-144021
+        </>
+      ),
+    },
+    {
+      icon: Phone,
+      title: "Phone",
+      content: (
+        <>
+          +919872664468
+          <br />
+          +917696300088
+        </>
+      ),
+    },
+    {
+      icon: Mail,
+      title: "Email",
+      content: "addicthawk9@gmail.com",
+    },
+    {
+      icon: Clock,
+      title: "Business Hours",
+      content: (
+        <>
+          Mon - Sat: 9:00 AM - 6:00 PM
+          <br />
+          Sun: Closed
+        </>
+      ),
+    },
+  ];
+
   return (
-    <section id="contact" className="py-20 bg-white" data-aos="fade-up">
+    <section id="contact" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16" data-aos="fade-up">
-          <h2
-            className="mb-4 text-gray-900"
-            data-aos="fade-up"
-            data-aos-delay="50"
-          >
+        <FadeUp className="text-center mb-16">
+          <h2 className="mb-4 text-gray-900">
             Get In Touch
           </h2>
-          <p
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
-            data-aos="fade-up"
-            data-aos-delay="100"
-          >
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
             Ready to discuss your leather manufacturing needs? Our team of
             experts is here to help you bring your vision to life.
           </p>
-        </div>
+        </FadeUp>
 
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Contact Information */}
-          <div className="lg:col-span-1" data-aos="fade-right">
-            <div className="space-y-6">
-              <Card data-aos="fade-up" data-aos-delay="0">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-6 h-6 text-amber-700" />
-                    </div>
-                    <div>
-                      <h4 className="mb-1 text-gray-900">Factory Location</h4>
-                      <p className="text-gray-600">
-                        74-C
-                        <br />
-                        Leather Complex
-                        <br />
-                        Jalandhar-144021
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
+          <FadeRight className="lg:col-span-1">
+            <StaggerContainer className="space-y-6" staggerDelay={0.1}>
+              {contactCards.map((card, index) => (
+                <StaggerItem key={index}>
+                  <Card>
+                    <CardContent className="p-6">
+                      <div className="flex items-start gap-4">
+                        <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                          <card.icon className="w-6 h-6 text-amber-700" />
+                        </div>
+                        <div>
+                          <h4 className="mb-1 text-gray-900">{card.title}</h4>
+                          <p className="text-gray-600">{card.content}</p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </StaggerItem>
+              ))}
+            </StaggerContainer>
+          </FadeRight>
 
-              <Card data-aos="fade-up" data-aos-delay="75">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Phone className="w-6 h-6 text-amber-700" />
-                    </div>
-                    <div>
-                      <h4 className="mb-1 text-gray-900">Phone</h4>
-                      <p className="text-gray-600">
-                        +919872664468
-                        <br />
-                        +917696300088
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card data-aos="fade-up" data-aos-delay="150">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-6 h-6 text-amber-700" />
-                    </div>
-                    <div>
-                      <h4 className="mb-1 text-gray-900">Email</h4>
-                      <p className="text-gray-600">addicthawk9@gmail.com</p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              <Card data-aos="fade-up" data-aos-delay="225">
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="w-12 h-12 bg-amber-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Clock className="w-6 h-6 text-amber-700" />
-                    </div>
-                    <div>
-                      <h4 className="mb-1 text-gray-900">Business Hours</h4>
-                      <p className="text-gray-600">
-                        Mon - Sat: 9:00 AM - 6:00 PM
-                        <br />
-                        Sun: Closed
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div className="lg:col-span-2" data-aos="fade-left">
+          <FadeLeft className="lg:col-span-2">
             <Card>
-              <CardHeader data-aos="fade-up">
+              <CardHeader>
                 <CardTitle>Request a Quote</CardTitle>
                 <p className="text-gray-600">
                   Fill out the form below and our team will get back to you
                   within 24 hours.
                 </p>
               </CardHeader>
-              <CardContent data-aos="fade-up" data-aos-delay="75">
+              <CardContent>
                 <form className="space-y-6" onSubmit={formHandling}>
                   <div className="grid md:grid-cols-2 gap-4">
                     <div>
@@ -366,19 +344,19 @@ export function ContactSection() {
                     />
                   </div>
 
-                  <Button
-                    type="submit"
-                    className="w-full bg-amber-700 hover:bg-amber-800"
-                    data-aos="zoom-in"
-                    data-aos-delay="150"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? "Sending..." : "Send Message"}
-                  </Button>
+                  <ZoomIn delay={0.1}>
+                    <Button
+                      type="submit"
+                      className="w-full bg-amber-700 hover:bg-amber-800"
+                      disabled={isSubmitting}
+                    >
+                      {isSubmitting ? "Sending..." : "Send Message"}
+                    </Button>
+                  </ZoomIn>
                 </form>
               </CardContent>
             </Card>
-          </div>
+          </FadeLeft>
         </div>
       </div>
     </section>
