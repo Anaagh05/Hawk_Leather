@@ -199,7 +199,7 @@ export function ContactSection() {
             <Card>
               <CardHeader>
                 <CardTitle>Request a Quote</CardTitle>
-                <p className="text-gray-600">
+                <p className="text-gray-600" id="quota_form">
                   Fill out the form below and our team will get back to you
                   within 24 hours.
                 </p>

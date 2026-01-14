@@ -12,7 +12,7 @@ export function Header() {
     { name: "About", href: "#about" },
     { name: "Products", href: "#products" },
     { name: "Process", href: "#process" },
-    { name: "Contact", href: "#contact" },
+    { name: "Contact", href: "#quota_form" },
   ];
 
   return (
@@ -92,7 +92,7 @@ export function Header() {
                 </a>
               ))}
               <Button className="bg-amber-700 hover:bg-amber-800 w-full mt-4">
-              <a href="#contact">Get Quote</a>
+              <a href="#quota_form">Get Quote</a>
               </Button>
             </nav>
           </div>

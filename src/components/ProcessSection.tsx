@@ -106,7 +106,7 @@ export function ProcessSection() {
 
           <FadeLeft className="relative overflow-hidden">
             <ImageWithFallback
-              src="/upholistry.jpg"
+              src="/quality_insurance_1.jpeg"
               alt="Leather manufacturing process"
               className="w-full h-96 object-cover rounded-lg shadow-xl"
             />

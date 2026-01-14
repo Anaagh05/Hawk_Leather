@@ -121,7 +121,7 @@ const products: Product[] = [
         title: "Furniture Upholstery",
         description:
           "Textured leather panels for luxury interior wall applications and decorative elements.",
-        image: "/upholistry.jpg",
+        image: "/furntiture_stock.jpeg",
       },
       {
         title: "Buff Full Graned Finished Leather",
