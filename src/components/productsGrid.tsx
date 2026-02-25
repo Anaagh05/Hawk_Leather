@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { FadeUp } from "./ui/motion";
 
@@ -6,193 +6,264 @@ interface ProductVariant {
   title: string;
   description: string;
   image: string;
+  tags: string[];
 }
 interface Product {
   variants: ProductVariant[];
-  tags: string[];
 }
 
-const products: Product[] = [
-  {
-    variants: [
-      {
-        title: "Shoe Upper & Lining Leather",
-        description:
-          "Premium Italian leather known for its exceptional quality and craftsmanship.",
-        image:
-          "https://www.rolfordleather.com/cdn/shop/articles/rolford-leather-merchants-northampton-hero-13.jpg?v=1734726414&width=360",
-      },
-      {
-        title: "Buff Beige Lining",
-        description:
-          "Premium beige-toned lining leather offering a soft touch and excellent moisture absorption.",
-        image: "/linning/buff_beige_linning.jpg",
-      },
-      {
-        title: "Buff Black Lining",
-        description:
-          "Durable black leather lining with natural breathability for all-day comfort.",
-        image: "/linning/buff_black_linning.jpg",
-      },
-      {
-        title: "Buff Brown Lining",
-        description:
-          "Rich brown leather lining that molds perfectly to the foot for custom fit.",
-        image: "/linning/buff_brown_linning.jpg",
-      },
-      {
-        title: "Buff Black PDM",
-        description:
-          "Rich brown leather lining that molds perfectly to the foot for custom fit.",
-        image: "/pdm/buff_black_pdm.jpg",
-      },
-      {
-        title: "Buff coffee Nubuck",
-        description:
-          "Rich brown leather lining that molds perfectly to the foot for custom fit.",
-        image: "/nubuck/buff_coffee_nubuck.jpg",
-      },
-      {
-        title: "Buff Skin Suede",
-        description:
-          "Luxurious suede with velvety nap providing premium tactile experience for high-end fashion.",
-        image: "/buff_skin_suede.jpg",
-      },
-      {
-        title: "Buff Full Graned Finished Leather",
-        description:
-          "Top-quality upholstery leather that combines durability with comfort for premium furniture.",
-        image: "/leather/buff_full_graned_finished_leather.jpg",
-      },
-      {
-        title: "Buff Printed Leather",
-        description:
-          "Artistically printed leather adding unique character to interior design elements.",
-        image: "/leather/buff_printed_finished_leather.jpg",
-      },
-    ],
-    tags: ["Footwear", "Durable", "Flexible"],
-  },
-  {
-    variants: [
-      {
-        title: "Sports Goods Leather",
-        description:
-          "High-performance leather engineered for sports equipment with excellent grip and weather resistance.",
-        image:
-          "https://th.bing.com/th/id/OIP.YQhqRkTsIzGw10J_Lio_XwHaDp?w=332&h=172&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
-      },
-      {
-        title: "Buff Pink Nappa",
-        description:
-          "Soft, supple pink nappa leather with excellent stretch and recovery for sports accessories.",
-        image: "/nappa/buff_pink_nappa.jpg",
-      },
-      {
-        title: "Buff Red Nappa",
-        description:
-          "Vibrant red nappa leather offering superior flexibility and smooth finish for sports applications.",
-        image: "/nappa/buff_red_nappa.jpg",
-      },
-      {
-        title: "Buff Blue Nappa",
-        description:
-          "Premium blue nappa leather with consistent texture for high-end sports equipment.",
-        image: "/nappa/buff_blue_nappa.jpg",
-      },
-      {
-        title: "Buff Skin Suede",
-        description:
-          "Luxurious suede with velvety nap providing premium tactile experience for high-end fashion.",
-        image: "/buff_skin_suede.jpg",
-      },
-      {
-        title: "Buff Black PDM",
-        description:
-          "Rich brown leather lining that molds perfectly to the foot for custom fit.",
-        image: "/pdm/buff_black_pdm.jpg",
-      },
-    ],
-    tags: ["Sports", "Performance", "Weather-Resistant"],
-  },
-  {
-    variants: [
-      {
-        title: "Furniture Upholstery",
-        description:
-          "Textured leather panels for luxury interior wall applications and decorative elements.",
-        image: "/furntiture_stock.jpeg",
-      },
-      {
-        title: "Buff Full Graned Finished Leather",
-        description:
-          "Top-quality upholstery leather that combines durability with comfort for premium furniture.",
-        image: "/leather/buff_full_graned_finished_leather.jpg",
-      },
-      {
-        title: "Buff Printed Leather",
-        description:
-          "Artistically printed leather adding unique character to interior design elements.",
-        image: "/leather/buff_printed_finished_leather.jpg",
-      },
-    ],
-    tags: ["Furniture", "Luxury", "Interior"],
-  },
-  {
-    variants: [
-      {
-        title: "Garments & Goods",
-        description:
-          "Versatile leather materials for fashion garments and accessories with superior softness and breathability.",
-        image:
-          "https://realleathergarments.co.uk/wp-content/uploads/2023/03/Photo-by-Mohammadjavad-Asgharikolahi-on-Unsplash.jpg",
-      },
-      {
-        title: "Buff Pink Nappa",
-        description:
-          "Soft, supple pink nappa leather perfect for premium fashion accessories.",
-        image: "/nappa/buff_pink_nappa.jpg",
-      },
-      {
-        title: "Buff Red Nappa",
-        description:
-          "Vibrant red nappa leather offering superior flexibility for fashion applications.",
-        image: "/nappa/buff_red_nappa.jpg",
-      },
-      {
-        title: "Buff Blue Nappa",
-        description:
-          "Premium blue nappa leather with consistent texture for high-end fashion items.",
-        image: "/nappa/buff_blue_nappa.jpg",
-      },
-      {
-        title: "Buff Skin Suede",
-        description:
-          "Luxurious suede with velvety nap providing premium tactile experience for high-end fashion.",
-        image: "/buff_skin_suede.jpg",
-      },
-      {
-        title: "Buff Full Graned Finished Leather",
-        description:
-          "Top-quality upholstery leather that combines durability with comfort for premium furniture.",
-        image: "/leather/buff_full_graned_finished_leather.jpg",
-      },
-      {
-        title: "Buff Printed Leather",
-        description:
-          "Artistically printed leather adding unique character to interior design elements.",
-        image: "/leather/buff_printed_finished_leather.jpg",
-      },
-      {
-        title: "Buff Black PDM",
-        description:
-          "Rich brown leather lining that molds perfectly to the foot for custom fit.",
-        image: "/pdm/buff_black_pdm.jpg",
-      },
-    ],
-    tags: ["Fashion", "Accessories", "Versatile"],
-  },
-];
+// The 4 hero titles — order matches the 4 cards exactly
+const HERO_TITLES = [
+  "Shoe Upper & Lining Leather",
+  "Sports Goods Leather",
+  "Furniture Upholstery",
+  "Garments & Goods",
+] as const;
+
+
+
+interface ApiProduct {
+  id: string;
+  title: string;
+  image: string;
+  description: string;
+  features: string[];
+}
+
+/** Converts an ApiProduct into a ProductVariant */
+const toVariant = (p: ApiProduct): ProductVariant => ({
+  title: p.title,
+  description: p.description,
+  image: p.image,
+  tags: p.features ?? [],
+});
+
+/**
+ * Builds the 4 Product objects from the API response.
+ *
+ * Logic:
+ *  1. Find each of the 4 hero products by title match (case-insensitive).
+ *  2. Collect the remaining products and distribute them as evenly as
+ *     possible across the 4 cards (round-robin).
+ *  3. Each card = [heroVariant, ...its share of remaining variants].
+ */
+const buildProducts = (apiData: ApiProduct[]): Product[] => {
+  const heroVariants: (ProductVariant | null)[] = HERO_TITLES.map((heroTitle) => {
+    const match = apiData.find(
+      (p) => p.title.toLowerCase() === heroTitle.toLowerCase()
+    );
+    return match ? toVariant(match) : null;
+  });
+
+  const heroIds = new Set(
+    HERO_TITLES.map((heroTitle) => {
+      const match = apiData.find(
+        (p) => p.title.toLowerCase() === heroTitle.toLowerCase()
+      );
+      return match?.id;
+    }).filter(Boolean)
+  );
+
+  const remaining = apiData
+    .filter((p) => !heroIds.has(p.id))
+    .map(toVariant);
+
+  // Distribute remaining round-robin across 4 cards
+  const buckets: ProductVariant[][] = [[], [], [], []];
+  remaining.forEach((variant, i) => {
+    buckets[i % 4].push(variant);
+  });
+
+  return HERO_TITLES.map((_, cardIndex) => {
+    const hero = heroVariants[cardIndex];
+    const extras = buckets[cardIndex];
+    return {
+      variants: hero ? [hero, ...extras] : extras,
+    };
+  });
+};
+
+// const products: Product[] = [
+//   {
+//     variants: [
+//       {
+//         title: "Shoe Upper & Lining Leather",
+//         description:
+//           "Premium Italian leather known for its exceptional quality and craftsmanship.",
+//         image:
+//           "https://www.rolfordleather.com/cdn/shop/articles/rolford-leather-merchants-northampton-hero-13.jpg?v=1734726414&width=360",
+//       },
+//       {
+//         title: "Buff Beige Lining",
+//         description:
+//           "Premium beige-toned lining leather offering a soft touch and excellent moisture absorption.",
+//         image: "/linning/buff_beige_linning.jpg",
+//       },
+//       {
+//         title: "Buff Black Lining",
+//         description:
+//           "Durable black leather lining with natural breathability for all-day comfort.",
+//         image: "/linning/buff_black_linning.jpg",
+//       },
+//       {
+//         title: "Buff Brown Lining",
+//         description:
+//           "Rich brown leather lining that molds perfectly to the foot for custom fit.",
+//         image: "/linning/buff_brown_linning.jpg",
+//       },
+//       {
+//         title: "Buff Black PDM",
+//         description:
+//           "Rich brown leather lining that molds perfectly to the foot for custom fit.",
+//         image: "/pdm/buff_black_pdm.jpg",
+//       },
+//       {
+//         title: "Buff coffee Nubuck",
+//         description:
+//           "Rich brown leather lining that molds perfectly to the foot for custom fit.",
+//         image: "/nubuck/buff_coffee_nubuck.jpg",
+//       },
+//       {
+//         title: "Buff Skin Suede",
+//         description:
+//           "Luxurious suede with velvety nap providing premium tactile experience for high-end fashion.",
+//         image: "/buff_skin_suede.jpg",
+//       },
+//       {
+//         title: "Buff Full Graned Finished Leather",
+//         description:
+//           "Top-quality upholstery leather that combines durability with comfort for premium furniture.",
+//         image: "/leather/buff_full_graned_finished_leather.jpg",
+//       },
+//       {
+//         title: "Buff Printed Leather",
+//         description:
+//           "Artistically printed leather adding unique character to interior design elements.",
+//         image: "/leather/buff_printed_finished_leather.jpg",
+//       },
+//     ],
+//     tags: ["Footwear", "Durable", "Flexible"],
+//   },
+//   {
+//     variants: [
+//       {
+//         title: "Sports Goods Leather",
+//         description:
+//           "High-performance leather engineered for sports equipment with excellent grip and weather resistance.",
+//         image:
+//           "https://th.bing.com/th/id/OIP.YQhqRkTsIzGw10J_Lio_XwHaDp?w=332&h=172&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3",
+//       },
+//       {
+//         title: "Buff Pink Nappa",
+//         description:
+//           "Soft, supple pink nappa leather with excellent stretch and recovery for sports accessories.",
+//         image: "/nappa/buff_pink_nappa.jpg",
+//       },
+//       {
+//         title: "Buff Red Nappa",
+//         description:
+//           "Vibrant red nappa leather offering superior flexibility and smooth finish for sports applications.",
+//         image: "/nappa/buff_red_nappa.jpg",
+//       },
+//       {
+//         title: "Buff Blue Nappa",
+//         description:
+//           "Premium blue nappa leather with consistent texture for high-end sports equipment.",
+//         image: "/nappa/buff_blue_nappa.jpg",
+//       },
+//       {
+//         title: "Buff Skin Suede",
+//         description:
+//           "Luxurious suede with velvety nap providing premium tactile experience for high-end fashion.",
+//         image: "/buff_skin_suede.jpg",
+//       },
+//       {
+//         title: "Buff Black PDM",
+//         description:
+//           "Rich brown leather lining that molds perfectly to the foot for custom fit.",
+//         image: "/pdm/buff_black_pdm.jpg",
+//       },
+//     ],
+//     tags: ["Sports", "Performance", "Weather-Resistant"],
+//   },
+//   {
+//     variants: [
+//       {
+//         title: "Furniture Upholstery",
+//         description:
+//           "Textured leather panels for luxury interior wall applications and decorative elements.",
+//         image: "/furntiture_stock.jpeg",
+//       },
+//       {
+//         title: "Buff Full Graned Finished Leather",
+//         description:
+//           "Top-quality upholstery leather that combines durability with comfort for premium furniture.",
+//         image: "/leather/buff_full_graned_finished_leather.jpg",
+//       },
+//       {
+//         title: "Buff Printed Leather",
+//         description:
+//           "Artistically printed leather adding unique character to interior design elements.",
+//         image: "/leather/buff_printed_finished_leather.jpg",
+//       },
+//     ],
+//     tags: ["Furniture", "Luxury", "Interior"],
+//   },
+//   {
+//     variants: [
+//       {
+//         title: "Garments & Goods",
+//         description:
+//           "Versatile leather materials for fashion garments and accessories with superior softness and breathability.",
+//         image:
+//           "https://realleathergarments.co.uk/wp-content/uploads/2023/03/Photo-by-Mohammadjavad-Asgharikolahi-on-Unsplash.jpg",
+//       },
+//       {
+//         title: "Buff Pink Nappa",
+//         description:
+//           "Soft, supple pink nappa leather perfect for premium fashion accessories.",
+//         image: "/nappa/buff_pink_nappa.jpg",
+//       },
+//       {
+//         title: "Buff Red Nappa",
+//         description:
+//           "Vibrant red nappa leather offering superior flexibility for fashion applications.",
+//         image: "/nappa/buff_red_nappa.jpg",
+//       },
+//       {
+//         title: "Buff Blue Nappa",
+//         description:
+//           "Premium blue nappa leather with consistent texture for high-end fashion items.",
+//         image: "/nappa/buff_blue_nappa.jpg",
+//       },
+//       {
+//         title: "Buff Skin Suede",
+//         description:
+//           "Luxurious suede with velvety nap providing premium tactile experience for high-end fashion.",
+//         image: "/buff_skin_suede.jpg",
+//       },
+//       {
+//         title: "Buff Full Graned Finished Leather",
+//         description:
+//           "Top-quality upholstery leather that combines durability with comfort for premium furniture.",
+//         image: "/leather/buff_full_graned_finished_leather.jpg",
+//       },
+//       {
+//         title: "Buff Printed Leather",
+//         description:
+//           "Artistically printed leather adding unique character to interior design elements.",
+//         image: "/leather/buff_printed_finished_leather.jpg",
+//       },
+//       {
+//         title: "Buff Black PDM",
+//         description:
+//           "Rich brown leather lining that molds perfectly to the foot for custom fit.",
+//         image: "/pdm/buff_black_pdm.jpg",
+//       },
+//     ],
+//     tags: ["Fashion", "Accessories", "Versatile"],
+//   },
+// ];
 
 const CardCarousel: React.FC<{ product: Product }> = ({ product }) => {
   const [current, setCurrent] = useState(0);
@@ -433,7 +504,7 @@ const CardCarousel: React.FC<{ product: Product }> = ({ product }) => {
         </p>
 
         <div className="flex flex-wrap mt-auto" style={{ gap: "0.5rem" }}>
-          {product.tags.map((tag, idx) => (
+          {variant.tags.map((tag, idx) => (
             <span
               key={idx}
               className="inline-flex items-center px-3 py-1.5 bg-gradient-to-r from-amber-50 to-amber-100 text-amber-700 text-xs font-medium rounded-full border border-amber-200/50"
@@ -473,21 +544,40 @@ const CardCarousel: React.FC<{ product: Product }> = ({ product }) => {
   );
 };
 
-const ProductsGrid: React.FC = () => (
-  <FadeUp className="p-8">
-    <div className="max-w-7xl mx-auto">
-      <div
-        className="grid md:grid-cols-2 lg:grid-cols-4"
-        style={{ gap: "2rem" }}
-      >
-        {products.map((product, idx) => (
-          <div key={idx}>
-            <CardCarousel product={product} />
-          </div>
-        ))}
+const ProductsGrid: React.FC = () => {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch("https://hawk-leather-backend.vercel.app/api/v1/leather/all")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.success && Array.isArray(json.data)) {
+          setProducts(buildProducts(json.data));
+        }
+      })
+      .catch((err) => console.error("Failed to fetch leather products:", err))
+      .finally(() => setLoading(false));
+  }, []);
+
+  if (loading) return null; // or swap with a spinner if you have one
+
+  return (
+    <FadeUp className="p-8">
+      <div className="max-w-7xl mx-auto">
+        <div
+          className="grid md:grid-cols-2 lg:grid-cols-4"
+          style={{ gap: "2rem" }}
+        >
+          {products.map((product, idx) => (
+            <div key={idx}>
+              <CardCarousel product={product} />
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-  </FadeUp>
-);
+    </FadeUp>
+  );
+};
 
 export default ProductsGrid;
