@@ -2,7 +2,11 @@ import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { Award, Clock } from "lucide-react";
 import { FadeUp, FadeRight, FadeLeft, ZoomIn, StaggerContainer, StaggerItem } from "./ui/motion";
 
-export function AboutSection() {
+interface AboutSectionProps {
+  description: string;
+}
+
+export function AboutSection({ description }: AboutSectionProps) {
   const stats = [
     { icon: Clock, label: "Years in Business", value: "25+" },
     { icon: Award, label: "Customer Satisfaction Certifications", value: "98.5%" },
@@ -17,17 +21,14 @@ export function AboutSection() {
               <h2 className="mb-6 text-amber-700">
                 Crafting Excellence Since 1999
               </h2>
-              <p className="text-gray-600 mb-6">
-                Founded with a passion for leather, Hawk Exports has
-                grown from a small family workshop to one of the world's leading
-                leather manufacturers. We serve luxury fashion brands, automotive
-                companies, and furniture makers with uncompromising quality.
-              </p>
-              <p className="text-gray-600 mb-8">
-                Our commitment to sustainable practices and ethical sourcing
-                ensures that every piece we create meets the highest standards of
-                quality while respecting both our craftsmen and the environment.
-              </p>
+              {description.split("\n").map((paragraph, index) => (
+                <p
+                  key={`${paragraph}-${index}`}
+                  className={index === 0 ? "text-gray-600 mb-6" : "text-gray-600 mb-8"}
+                >
+                  {paragraph}
+                </p>
+              ))}
 
               <StaggerContainer className="grid grid-cols-2 gap-6" staggerDelay={0.1}>
                 {stats.map((stat, index) => (

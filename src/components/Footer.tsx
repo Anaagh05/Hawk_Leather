@@ -4,9 +4,52 @@ import {
   MapPin,
 } from "lucide-react";
 import { FadeUp } from "./ui/motion";
+import { useEffect, useState } from "react";
+
+const DEFAULT_LOCATION = "74-C Leather Complex, Jalandhar-144021";
+const DEFAULT_PHONE = "+919872664468";
+const DEFAULT_EMAIL = "addicthawk9@gmail.com";
+
+interface LocationResponse {
+  location?: string | null;
+  phoneNumber?: string | null;
+  email?: string | null;
+}
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
+  const [location, setLocation] = useState(DEFAULT_LOCATION);
+  const [phone, setPhone] = useState(DEFAULT_PHONE);
+  const [email, setEmail] = useState(DEFAULT_EMAIL);
+
+  useEffect(() => {
+    const getLocationInfo = async () => {
+      try {
+        const response = await fetch("https://hawk-leather-backend.vercel.app/api/v1/location/");
+        if (!response.ok) {
+          return;
+        }
+
+        const data: LocationResponse = await response.json();
+        if (typeof data.location === "string" && data.location.trim()) {
+          setLocation(data.location);
+        }
+        if (typeof data.phoneNumber === "string" && data.phoneNumber.trim()) {
+          const trimmedPhone = data.phoneNumber.trim();
+          setPhone(
+            trimmedPhone.startsWith("+") ? trimmedPhone : `+91${trimmedPhone}`
+          );
+        }
+        if (typeof data.email === "string" && data.email.trim()) {
+          setEmail(data.email);
+        }
+      } catch (error) {
+        console.error("Failed to fetch location data:", error);
+      }
+    };
+
+    getLocationInfo();
+  }, []);
 
   const footerLinks = {
     company: [
@@ -42,16 +85,16 @@ export function Footer() {
                 <div className="flex items-center gap-3">
                   <MapPin className="w-4 h-4 text-amber-500 flex-shrink-0" />
                   <span className="text-gray-300">
-                    74-C Leather Complex, Jalandhar-144021
+                    {location}
                   </span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Phone className="w-4 h-4 text-amber-500 flex-shrink-0" />
-                  <span className="text-gray-300">+919872664468</span>
+                  <span className="text-gray-300">{phone}</span>
                 </div>
                 <div className="flex items-center gap-3">
                   <Mail className="w-4 h-4 text-amber-500 flex-shrink-0" />
-                  <span className="text-gray-300">addicthawk9@gmail.com</span>
+                  <span className="text-gray-300">{email}</span>
                 </div>
               </div>
             </div>

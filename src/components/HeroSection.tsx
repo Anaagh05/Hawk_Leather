@@ -2,7 +2,11 @@ import { Button } from "./ui/button";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { motion, useReducedMotion } from "framer-motion";
 
-export function HeroSection() {
+interface HeroSectionProps {
+  description: string;
+}
+
+export function HeroSection({ description }: HeroSectionProps) {
   const prefersReducedMotion = useReducedMotion();
 
   return (
@@ -35,9 +39,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
           >
-            We combine traditional craftsmanship with modern techniques to
-            create the finest leather products for luxury brands worldwide. From
-            concept to completion, we deliver excellence in every stitch.
+            {description}
           </motion.p>
           <motion.div
             className="flex flex-col sm:flex-row gap-4 justify-center"
